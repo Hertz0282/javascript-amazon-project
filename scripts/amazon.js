@@ -48,11 +48,47 @@ products.forEach((product) => {
         Added
         </div>
 
-        <button class="add-to-cart-button button-primary">Add to Cart</button>
+        <button class="add-to-cart-button button-primary js-add-to-cart"
+        data-product-name = "${product.name}"
+        data-product-id = "${product.id}">
+        Add to Cart
+        </button>
+        <!-- data attribute helps to give an unique name to an element.
+        This piece of code has to start with data-< any name >.
+        The purpose of this data attribute is to give an additional information it can be name, price and age. -->
     </div>`;
 
 });
 
 
+// we should not be using productname to differentiate a product so you need to have some sort of unique id for each of the products.
 
 document.querySelector('.js-product-grid').innerHTML = productsHTML;
+
+document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+    button.addEventListener('click', () => {
+        console.log(button.dataset.productId); // this syntax gives all the data attributes present in that piece of code.
+        const productId = button.dataset.productId;
+        const productName = button.dataset.productName;
+
+        let matchingItem;
+
+        cart.forEach((item) => {
+            if (productId === item.productId) {
+                matchingItem = item;
+            }
+        });
+
+        if (matchingItem) {
+            matchingItem.quantity ++;
+        } else {
+            cart.push({
+                productId: productId,
+                productName: productName,
+                quantity: 1,
+            }); 
+        }
+
+        console.log(cart);
+    });
+});
