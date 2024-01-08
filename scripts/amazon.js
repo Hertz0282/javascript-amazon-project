@@ -1,5 +1,6 @@
 // here we are using an array to show the products and as a product has different paramaters to it we shall be using object inside the array to represent these products. Below is how we represent html in javascript
 import { cart } from "../data/cart.js";
+import { products } from "../data/products.js";
 
 let productsHTML = "";
 
