@@ -1,5 +1,5 @@
 // here we are using an array to show the products and as a product has different paramaters to it we shall be using object inside the array to represent these products. Below is how we represent html in javascript
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 let productsHTML = "";
@@ -67,37 +67,25 @@ products.forEach((product) => {
 
 document.querySelector('.js-product-grid').innerHTML = productsHTML;
 
+function updateCartQuantity() {
+    let cartQuantity = 0;
+
+    cart.forEach((cartItem) => {
+        cartQuantity += cartItem.quantity;                
+    })
+
+    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+}
+
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     button.addEventListener('click', () => {
         console.log(button.dataset.productId); // this syntax gives all the data attributes present in that piece of code.
         const productId = button.dataset.productId;
         const productName = button.dataset.productName;
+        
+        addToCart(productId, productName);
+        updateCartQuantity();
 
-        let matchingItem;
-
-        cart.forEach((item) => {
-            if (productId === item.productId) {
-                matchingItem = item;
-            }
-        });
-
-        if (matchingItem) {
-            matchingItem.quantity ++;
-        } else {
-            cart.push({
-                productId: productId,
-                productName: productName,
-                quantity: 1,
-            }); 
-        }
-
-        let cartQuantity = 0;
-
-        cart.forEach((item) => {
-            cartQuantity += item.quantity;                
-        })
-
-        document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
     });
 });
 
