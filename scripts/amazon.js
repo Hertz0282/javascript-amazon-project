@@ -1,6 +1,7 @@
 // here we are using an array to show the products and as a product has different paramaters to it we shall be using object inside the array to represent these products. Below is how we represent html in javascript
 import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
+import { formatCurrency } from "./utils/money.js";
 
 let productsHTML = "";
 
@@ -26,7 +27,7 @@ products.forEach((product) => {
         <div class="product-rating-count link-primary">${product.rating.count}</div>
         </div>
 
-        <div class="product-price">$${(product.priceCents / 100).toFixed(2)}</div> <!-- here to fixed is used to generate 2 decimal places. -->
+        <div class="product-price">$${formatCurrency(product.priceCents)}</div> <!-- here to fixed is used to generate 2 decimal places. -->
 
         <div class="product-quantity-container">
         <select>
