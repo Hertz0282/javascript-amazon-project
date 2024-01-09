@@ -4,9 +4,11 @@ import { formatCurrency } from "./utils/money.js";
 
 
 let cartSummaryHTML = "";
+let totalCartQuantity = 0;
 
 cart.forEach((cartItem) => {
     const productId = cartItem.productId;
+    totalCartQuantity += cartItem.quantity;
 
     let matchingProduct;
 
@@ -87,6 +89,7 @@ cart.forEach((cartItem) => {
 });
 
 document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
+document.querySelector('.js-total-items').innerHTML = `${totalCartQuantity} items`;
 
 document.querySelectorAll('.js-delete-link').forEach((link) => {
     link.addEventListener('click', () => {
